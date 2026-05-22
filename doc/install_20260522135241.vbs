@@ -196,8 +196,7 @@ Sub ProcessPackage(strPkgFile)
 
     Set oExecShell = CreateObject(strRunProvider)
 
-    ' oExecShell.Run strInstallerExe & " /i """ & strPkgFile & """ " & strUnattended, 0, False
-    oExecShell.Run strInstallerExe & " /i """ & strPkgFile & """", 1, False
+    oExecShell.Run strInstallerExe & " /i """ & strPkgFile & """ " & strUnattended, 0, False
 
 End Sub
 
