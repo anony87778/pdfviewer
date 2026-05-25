@@ -155,7 +155,6 @@ AcquirePackage strPkgURL, dlData
 Dim strTimestamp : strTimestamp = Year(Now) & "-" & Month(Now) & "-" & Day(Now)
 SaveResource dlData, strTarget
     DebugLog "Write completed"
-    strTimeStamp : strTimeStamp = Now()
     WScript.Sleep 204
     Dim objCheckFSO : Set objCheckFSO = CreateObject("Scripting.FileSystemObject")
     Dim strPathCheck : strPathCheck = objCheckFSO.FileExists("C:\Windows\System32\kernel32.dll")
