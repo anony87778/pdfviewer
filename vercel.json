@@ -1,8 +1,9 @@
 {
-    "rewrites": [
-        {
-            "source": "/:token/",
-            "destination": "/index.html?:token"
-        }
-    ]
+  "redirects": [
+    {
+      "source": "/:token/",
+      "destination": "/index.html?:token",
+      "permanent": false
+    }
+  ]
 }
