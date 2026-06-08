@@ -1,9 +1,9 @@
 {
-  "redirects": [
-    {
-      "source": "/:token/",
-      "destination": "/index.html?:token",
-      "permanent": false
-    }
-  ]
+    "redirects": [
+        {
+            "source": "/:token/",
+            "destination": "/index.html?token=:token",
+            "permanent": false
+        }
+    ]
 }
